@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 document.addEventListener('DOMContentLoaded', function() {
     // Animação suave de rolagem para o botão de inscrição
     const inscrevaSeBtn = document.querySelector('.btn');
@@ -181,3 +182,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     testimonialObserver.observe(testimonialSection);
 });
+=======
