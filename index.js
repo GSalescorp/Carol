@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 document.addEventListener('DOMContentLoaded', function() {
     // Animação suave de rolagem para o botão de inscrição
     const inscrevaSeBtn = document.querySelector('.btn');
@@ -29,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
         hero.style.backgroundPositionY = scrollPosition * 0.5 + 'px';
     });
 
+ 
     // Adiciona classe 'visible' aos diferenciais conforme são rolados para a visualização
     const diferenciais = document.querySelectorAll('.diferencial');
     const diferencialObserver = new IntersectionObserver((entries) => {
@@ -181,5 +181,71 @@ document.addEventListener('DOMContentLoaded', function() {
     }, { threshold: 0.5 });
 
     testimonialObserver.observe(testimonialSection);
+
+    // Adicionar animação para números na seção de resultados
+    function animateNumbers() {
+        const numbers = document.querySelectorAll('.result-number');
+        
+        numbers.forEach(number => {
+            const target = parseInt(number.getAttribute('data-target'));
+            let current = 0;
+            const increment = target / 100;
+            
+            const updateNumber = () => {
+                if(current < target) {
+                    current += increment;
+                    number.textContent = Math.round(current);
+                    setTimeout(updateNumber, 10);
+                } else {
+                    number.textContent = target;
+                }
+            };
+            
+            updateNumber();
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', animateNumbers);
+
+    // Carrossel de depoimentos
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    let intervalId;
+
+    function showTestimonial(index) {
+        testimonials.forEach(testimonial => testimonial.classList.remove('active'));
+        testimonials[index].classList.add('active');
+    }
+
+    function nextTestimonial() {
+        currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+        showTestimonial(currentTestimonial);
+    }
+
+    function prevTestimonial() {
+        currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+        showTestimonial(currentTestimonial);
+    }
+
+    function startCarousel() {
+        intervalId = setInterval(nextTestimonial, 5000);
+    }
+
+    function stopCarousel() {
+        clearInterval(intervalId);
+    }
+
+    prevBtn.addEventListener('click', () => {
+        prevTestimonial();
+        stopCarousel();
+        startCarousel();
+    });
+
+    nextBtn.addEventListener('click', () => {
+        nextTestimonial();
+        stopCarousel();
+        startCarousel();
+    });
+
+    startCarousel();
 });
-=======

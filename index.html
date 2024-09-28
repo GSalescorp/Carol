@@ -9,6 +9,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
+    <style>
+        .hero-content {
+            text-align: right !important;
+            padding-right: 50px !important;
+        }
+        .hero-title, .hero-subtitle {
+            text-align: right !important;
+        }
+    </style>
 </head>
 <body>
     <header id="main-header">
@@ -23,6 +32,7 @@
                     <li><a href="#expertise">Expertise</a></li>
                     <li><a href="#servicos">Serviços</a></li>
                     <li><a href="#resultados">Resultados</a></li>
+                    <li><a href="#contato">Contato</a></li>
                     <li><a href="#contato" class="btn-primary">Fale Comigo</a></li>
                 </ul>
             </nav>
@@ -37,35 +47,24 @@
                     <p>Pare de postar e comece a vender</p>
                 </div>
             </div>
-            <spline-viewer url="https://prod.spline.design/TLqLIRxjlHt7iCYv/scene.splinecode"></spline-viewer>
+            <div id="spline-container">
+                <div id="spline-loader">Carregando...</div>
+                <spline-viewer url="https://prod.spline.design/TLqLIRxjlHt7iCYv/scene.splinecode"></spline-viewer>
+            </div>
         </section>
 
         <section id="sobre" class="section-light">
             <div class="container">
                 <h2>Conheça Carol Nunes</h2>
                 <div class="about-content">
-                    <div class="about-text">
-                        <p>Sou Caroline Nunes. Durante 6 anos, fiz parte do grande jogo das redes sociais. 
-
-                            Postava sem parar, criava milhões de conteúdos para marcas pessoais e empresariais. Likes, comentários, seguidores – mas algo estava faltando: vendas reais.
-                            
-                            Foi quando percebi que não é sobre a quantidade de conteúdo, mas sobre o que você está dizendo e como você se conecta. 
-                            
-                            E foi assim que criei o Sales Creator – uma mentoria criada para te ensinar a parar de fazer panfletagem nas redes sociais e começar a criar conteúdos que vendem e conectam de verdade.
-                            </p>
-                        <ul>
-                            <p><i class="fas fa-check-circle"></i>
-                                No Sales Creator, você aprenderá como dominar o storytelling que vende, contando a história certa para impactar seu público, 
-                                além de construir autoridade para se posicionar de forma única e atrair clientes de alta qualidade. Também descobrirá como 
-                                utilizar scripts de vendas eficazes para negócios fechar de forma consistente, implementar estratégias de conversão que 
-                                transformam sua audiência em clientes pagantes, e criar uma linha editorial mensal completa em poucas horas, mantendo a 
-                                criatividade e consistência em seus conteúdos.
-                            </p>
-                            
-                        </ul>
-                    </div>
                     <div class="about-image">
-                        <img src="img/carol-nunes-profile.jpeg" alt="Carol Nunes palestrando" width="1" height="10">
+                        <img src="img/carol-nunes-profile.jpeg" alt="Carol Nunes" class="round-image">
+                    </div>
+                    <div class="about-text">
+                        <p>Sou Caroline Nunes. Durante 6 anos, fiz parte do grande jogo das redes sociais.</p>
+                        <p>Postava sem parar, criava milhões de conteúdos para marcas pessoais e empresariais. Likes, comentários, seguidores – mas algo estava faltando: vendas reais.</p>
+                        <p>Foi quando percebi que não é sobre a quantidade de conteúdo, mas sobre o que você está dizendo e como você se conecta.</p>
+                        <p>E foi assim que criei o Sales Creator – uma mentoria criada para te ensinar a parar de fazer panfletagem nas redes sociais e começar a criar conteúdos que vendem e conectam de verdade.</p>
                     </div>
                 </div>
             </div>
@@ -78,18 +77,22 @@
                     <div class="expertise-item">
                         <i class="fas fa-chart-line"></i>
                         <h3>Growth Marketing</h3>
+                        <p>Estratégias para crescimento acelerado e sustentável do seu negócio.</p>
                     </div>
                     <div class="expertise-item">
                         <i class="fas fa-bullseye"></i>
                         <h3>Estratégia de Conteúdo</h3>
+                        <p>Criação de conteúdo relevante e engajador para sua audiência.</p>
                     </div>
                     <div class="expertise-item">
-                        <i class="fas fa-search"></i>
-                        <h3>SEO Avançado</h3>
+                        <i class="fas fa-shopping-cart"></i>
+                        <h3>Vendas Digitais</h3>
+                        <p>Otimização de funis de venda e aumento de conversões online.</p>
                     </div>
                     <div class="expertise-item">
                         <i class="fas fa-ad"></i>
                         <h3>Publicidade Digital</h3>
+                        <p>Campanhas eficientes em plataformas como Google Ads e redes sociais.</p>
                     </div>
                 </div>
             </div>
@@ -123,15 +126,15 @@
                 <h2>Resultados Comprovados</h2>
                 <div class="results-grid">
                     <div class="result-item">
-                        <span class="result-number">300%</span>
+                        <span class="result-number" data-target="300">0</span>%
                         <p>Aumento médio em tráfego orgânico</p>
                     </div>
                     <div class="result-item">
-                        <span class="result-number">5x</span>
-                        <p>Aumento em taxa de conversão</p>
+                        <span class="result-number" data-target="5">0</span>x
+                        <p>Redução de CPA</p>
                     </div>
                     <div class="result-item">
-                        <span class="result-number">1M+</span>
+                        <span class="result-number" data-target="1000000">0</span>+
                         <p>Leads gerados para clientes</p>
                     </div>
                 </div>
@@ -141,19 +144,41 @@
         <section id="depoimentos" class="section-light">
             <div class="container">
                 <h2>O Que Dizem os Clientes</h2>
-                <div class="testimonial-slider">
-                    <div class="testimonial">
-                        <p>"A consultoria da Carol foi um divisor de águas para nossa empresa. Nosso ROI em marketing digital triplicou em apenas 6 meses."</p>
-                        <div class="testimonial-author">
-                            <!-- Remova ou comente esta linha se a imagem não existir -->
-                            <!-- <img src="img/client1.jpg" alt="João Silva" width="60" height="60"> -->
-                            <div>
+                <div class="testimonial-carousel">
+                    <div class="testimonial active">
+                        <img src="img/client2.jpeg" alt="Cliente 1" class="client-image">
+                        <div class="testimonial-content">
+                            <p>"A consultoria da Carol foi um divisor de águas para nossa empresa. Nosso ROI em marketing digital triplicou em apenas 6 meses."</p>
+                            <div class="testimonial-author">
                                 <h4>João Silva</h4>
-                                <span>CEO, TechInova</span>
+                                <span>CTO Inova</span>
                             </div>
                         </div>
                     </div>
-                    <!-- Adicione mais depoimentos aqui -->
+                    <div class="testimonial">
+                        <img src="img/client1.jpeg" alt="Cliente 2" class="client-image">
+                        <div class="testimonial-content">
+                            <p>"Carol nos ajudou a entender melhor nosso público-alvo e a criar estratégias mais eficientes. Os resultados foram impressionantes!"</p>
+                            <div class="testimonial-author">
+                                <h4>Luiza Souza</h4>
+                                <span>Diretora de Marketing, FashionTrends</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial">
+                        <img src="img/client3.jpeg" alt="Cliente 3" class="client-image">
+                        <div class="testimonial-content">
+                            <p>"A abordagem da Carol é única. Ela não só nos deu estratégias, mas nos ensinou a pensar de forma diferente sobre marketing digital."</p>
+                            <div class="testimonial-author">
+                                <h4>Pedro Oliveira</h4>
+                                <span>Growth Manager</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-controls">
+                    <button class="prev-btn" aria-label="Depoimento anterior"></button>
+                    <button class="next-btn" aria-label="Próximo depoimento"></button>
                 </div>
             </div>
         </section>
@@ -167,16 +192,20 @@
                         <input type="text" id="name" name="name" required>
                     </div>
                     <div class="form-group">
+                        <label for="niche">Qual seu nicho?</label>
+                        <input type="text" id="niche" name="niche" required>
+                    </div>
+                    <div class="form-group">
                         <label for="email">E-mail</label>
                         <input type="email" id="email" name="email" required>
                     </div>
                     <div class="form-group">
-                        <label for="company">Empresa</label>
-                        <input type="text" id="company" name="company">
+                        <label for="whatsapp">Whatsapp</label>
+                        <input type="tel" id="whatsapp" name="whatsapp" required>
                     </div>
                     <div class="form-group">
-                        <label for="message">Mensagem</label>
-                        <textarea id="message" name="message" required></textarea>
+                        <label for="instagram">Instagram (@)</label>
+                        <input type="text" id="instagram" name="instagram" required>
                     </div>
                     <button type="submit" class="btn-primary">Enviar Mensagem</button>
                 </form>
@@ -187,11 +216,6 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo">
-                    <!-- Remova ou comente esta linha se a imagem não existir -->
-                    <!-- <img src="logo-white.png" alt="Carol Nunes Logo" width="150" height="50"> -->
-                    <p>Transformando negócios através do marketing digital</p>
-                </div>
                 <div class="footer-links">
                     <h4>Links Rápidos</h4>
                     <ul>
@@ -203,11 +227,11 @@
                     </ul>
                 </div>
                 <div class="footer-social">
-                    <h4>Conecte-se</h4>
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <h4>Conecte-se comigo</h4>
+                    <a href="https://www.instagram.com/carolnunes" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/caroline-nunes-402085188/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.youtube.com/channel/UCiwTv0CbrzWN6qwlnZy3I2w" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdZMZ5dWxegc98eVveFILVblfqE2rps3Vaa5008F--HTveeRw/viewform"><i class="fas fa-link"></i></a>
                 </div>
             </div>
             <div class="footer-bottom">

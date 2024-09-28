@@ -65,12 +65,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Verificar o carregamento do Spline
     const splineViewer = document.querySelector('spline-viewer');
-    if (splineViewer) {
+    const splineLoader = document.getElementById('spline-loader');
+
+    if (splineViewer && splineLoader) {
         splineViewer.addEventListener('load', function() {
             console.log('Spline carregado com sucesso');
+            splineLoader.style.display = 'none';
         });
+
         splineViewer.addEventListener('error', function(error) {
             console.error('Erro ao carregar o Spline:', error);
+            splineLoader.textContent = 'Erro ao carregar o modelo 3D';
         });
     }
 
@@ -100,4 +105,156 @@ document.addEventListener('DOMContentLoaded', function() {
     // Chamadas iniciais
     updateTopLine();
     toggleScrollToTopBtn();
+
+    // Animação dos números de resultados
+    function animateNumbers() {
+        const resultNumbers = document.querySelectorAll('.result-number');
+        
+        resultNumbers.forEach(number => {
+            const target = parseInt(number.getAttribute('data-target'));
+            const duration = 2000; // Duração total da animação em milissegundos
+            let startTime;
+
+            const easeOutQuart = t => 1 - (--t) * t * t * t; // Função de easing para uma animação mais suave
+
+            const updateNumber = (currentTime) => {
+                if (!startTime) startTime = currentTime;
+                const elapsedTime = currentTime - startTime;
+                const progress = Math.min(elapsedTime / duration, 1);
+                const easedProgress = easeOutQuart(progress);
+
+                let current = Math.floor(easedProgress * target);
+                
+                if (target >= 1000000) {
+                    if (current < 1000) {
+                        number.textContent = current;
+                    } else if (current < 1000000) {
+                        number.textContent = (current / 1000).toFixed(1) + 'K';
+                    } else {
+                        number.textContent = (current / 1000000).toFixed(2) + 'M';
+                    }
+                } else {
+                    number.textContent = current;
+                }
+
+                if (progress < 1) {
+                    requestAnimationFrame(updateNumber);
+                } else {
+                    number.textContent = target >= 1000000 ? '1M+' : target;
+                }
+            };
+
+            requestAnimationFrame(updateNumber);
+        });
+    }
+
+    // Função para verificar se o elemento está visível na tela
+    function isElementInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    }
+
+    // Iniciar animação quando a seção de resultados estiver visível
+    const resultsSection = document.getElementById('resultados');
+    let animationStarted = false;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !animationStarted) {
+                animateNumbers();
+                animationStarted = true;
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    if (resultsSection) {
+        observer.observe(resultsSection);
+    }
+
+    // Carrossel de depoimentos
+    const testimonials = document.querySelectorAll('.testimonial');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    let currentTestimonial = 0;
+    let intervalId;
+
+    function showTestimonial(index) {
+        testimonials.forEach((testimonial, i) => {
+            if (i === index) {
+                testimonial.classList.add('active');
+                testimonial.classList.remove('prev', 'next');
+            } else if (i === (index - 1 + testimonials.length) % testimonials.length) {
+                testimonial.classList.add('prev');
+                testimonial.classList.remove('active', 'next');
+            } else if (i === (index + 1) % testimonials.length) {
+                testimonial.classList.add('next');
+                testimonial.classList.remove('active', 'prev');
+            } else {
+                testimonial.classList.remove('active', 'prev', 'next');
+            }
+        });
+    }
+
+    function nextTestimonial() {
+        currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+        showTestimonial(currentTestimonial);
+    }
+
+    function prevTestimonial() {
+        currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+        showTestimonial(currentTestimonial);
+    }
+
+    function startCarousel() {
+        intervalId = setInterval(nextTestimonial, 5000);
+    }
+
+    function stopCarousel() {
+        clearInterval(intervalId);
+    }
+
+    prevBtn.addEventListener('click', () => {
+        prevTestimonial();
+        stopCarousel();
+        startCarousel();
+    });
+
+    nextBtn.addEventListener('click', () => {
+        nextTestimonial();
+        stopCarousel();
+        startCarousel();
+    });
+
+    // Inicializar o carrossel
+    showTestimonial(currentTestimonial);
+    startCarousel();
+
+    // Manipulador de envio do formulário
+    const form = document.getElementById('contact-form');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(form);
+        
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            mode: 'no-cors'
+        })
+        .then(response => {
+            // O Google Forms não retorna uma resposta que podemos processar,
+            // então assumimos que foi bem-sucedido se chegamos aqui
+            alert('Formulário enviado com sucesso!');
+            form.reset();
+        })
+        .catch(error => {
+            console.error('Erro ao enviar o formulário:', error);
+            alert('Ocorreu um erro ao enviar o formulário. Por favor, tente novamente.');
+        });
+    });
 });
